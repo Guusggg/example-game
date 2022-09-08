@@ -5,6 +5,3 @@ edition = "2021"
 
 [dependencies]
 client-sys = { path = "./client-sys" }
-
-[build-dependencies]
-cc = "1.0"

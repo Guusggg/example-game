@@ -47,14 +47,14 @@ fn main() {
         println!("Wasm ctors called!");
 
         println!("Game has {} pages of memory!", (*client_sys::wasm_rt::memory).pages);
-        println!("console_log = {:?}", Z_envZ_console_log);
+        // println!("console_log = {:?}", Z_envZ_console_log);
 
-        let a = (Z_my_gameZ_game_init.unwrap())();
-        println!("Game init result: {}", a);
+        // let a = (Z_my_gameZ_game_init.unwrap())();
+        // println!("Game init result: {}", a);
 
-        for _ in 0..5 {
-            println!("Calling loop!");
-            (Z_my_gameZ_game_loop.unwrap())();
-        }
+        // for _ in 0..5 {
+        //     println!("Calling loop!");
+        //     (Z_my_gameZ_game_loop.unwrap())();
+        // }
     }
 }
