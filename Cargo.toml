@@ -1,0 +1,10 @@
+[package]
+name = "example-game"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+client-sys = { path = "./client-sys" }
+
+[build-dependencies]
+cc = "1.0"
