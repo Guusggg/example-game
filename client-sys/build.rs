@@ -1,15 +1,12 @@
 extern crate cc;
 
 fn main() {
-    let files = [
-        "src/my_game.c",
-        "src/wasm-rt-impl.c"
-    ];
+    let files = ["src/my_game.c", "src/wasm-rt-impl.c"];
 
     for file in files {
         println!("cargo:rerun-if-changed={}", file);
     }
-    
+
     println!("cargo:rerun-if-env-changed=TARGET");
 
     cc::Build::new()
