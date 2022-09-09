@@ -9,9 +9,11 @@ fn main() {
     for file in files {
         println!("cargo:rerun-if-changed={}", file);
     }
+    
+    println!("cargo:rerun-if-env-changed=TARGET");
 
     cc::Build::new()
-        .shared_flag(true)
+        .static_flag(true)
         .warnings(false)
         .include("./emsdk/upstream/emscripten/system/**")
         .files(files)
