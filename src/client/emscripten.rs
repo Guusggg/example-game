@@ -7,5 +7,5 @@ mod raw {
 }
 
 pub fn __wasm_call_ctors() {
-    unsafe { raw::__wasm_call_ctors() }
+    unsafe { raw::__wasm_call_ctors.unwrap()() }
 }

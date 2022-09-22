@@ -33,6 +33,7 @@ mod raw {
     }
 
     /** A Table object. */
+    #[repr(C)]
     pub struct wasm_rt_table_t {
         /** The table element data, with an element count of `size`. */
         data: *mut wasm_rt_elem_t,
@@ -58,6 +59,14 @@ mod raw {
     }
 }
 
+pub fn init() {
+    unsafe { raw::init() }
+}
+
+pub fn free() {
+    unsafe { raw::free() }
+}
+
 pub struct Address(u32);
 
 impl From<u32> for Address {
@@ -68,9 +77,9 @@ impl From<u32> for Address {
 
 pub struct Memory(*mut raw::wasm_rt_memory_t);
 
-impl Memory {
+impl Memory {    
     pub fn from_raw() -> Self {
-        Self(raw::memory)
+        Self(unsafe { raw::memory })
     }
 
     fn get(&self, addr: impl Into<Address>) -> *mut u8 {
@@ -102,12 +111,19 @@ impl Memory {
     pub fn global_mut<T>(&self, addr: impl Into<Address>) -> GlobalMut<T> {
         unsafe { mem::transmute(self.get(addr)) }
     }
+
+    pub fn pages(&self) -> u32 {
+        unsafe { (*self.0).pages }
+    }
 }
 
 pub struct FunctionTable(*mut raw::wasm_rt_table_t);
 
 impl FunctionTable {
     pub fn from_raw() -> Self {
-        Self(raw::function_table)
+        Self(unsafe { raw::function_table })
     }
 }
+
+unsafe impl Sync for Memory { }
+unsafe impl Sync for FunctionTable { }
